@@ -1,0 +1,148 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faShippingFast, faExchangeAlt, faPhoneVolume } from '@fortawesome/free-solid-svg-icons'
+import Category from '../Category'
+import Product from '../Product'
+
+import { useState, useEffect } from 'react'
+
+import foto from '../../img/prueba.png' //temporal
+
+import axios from 'axios'
+
+const endpoint = 'http://localhost:8000/api'
+
+const Home = () => {
+    
+    /*const [categorias, setCategorias] = useState([])
+    const [cCategorias, setCCategorias] = useState([])
+    const [fotos, setFotos] = useState([])
+    const [productos, setProductos] = useState([])
+    const [loaded, setLoaded] = useState(false)
+
+    useEffect(() => {
+        fetch("http://localhost/proyectos/backend-3deality/selectCategorias.php")
+            .then((response) => {
+                return response.json()
+            })
+            .then((categorias) => {
+                setCategorias(categorias)
+            })
+    }, [])
+
+    useEffect(() => {
+        fetch("http://localhost/proyectos/backend-3deality/cuentaCategorias.php")
+            .then((response) => {
+                return response.json()
+            })
+            .then((cCategorias) => {
+                setCCategorias(cCategorias)
+            })
+    }, [])
+
+    useEffect(() => {
+        fetch("http://localhost/proyectos/backend-3deality/fotosCategorias.php")
+            .then((response) => {
+                return response.json()
+            })
+            .then((fotos) => {
+                setFotos(fotos)
+            })
+    }, [])
+
+    useEffect(() => {
+        fetch("http://localhost/proyectos/backend-3deality/ordenaArticulos.php?sort=valoracion")
+            .then((response) => {
+                return response.json()
+            })
+            .then((productos) => {
+                setProductos(productos)
+                setLoaded(true)
+            })
+    }, [])*/
+
+    const [loaded, setLoaded] = useState(false)
+
+    const [articulos, setArticulos] = useState([])
+    const [categorias, setCategorias] = useState([])
+    const [cCategorias, setCCategorias] = useState([])
+
+    useEffect ( ()=> {
+        getArticulos()
+        getAllCategorias()
+        countAllCategorias()            
+    }, [])
+
+    const getArticulos = async () => {
+        const response = await axios.get(`${endpoint}/masvalorados`)
+        setArticulos(response.data)
+    }
+
+    const getAllCategorias = async () => {
+        const response = await axios.get(`${endpoint}/categorias`)
+        setCategorias(response.data)
+    }
+
+    const countAllCategorias = async () => {
+        const response = await axios.get(`${endpoint}/ccategorias`)
+        setCCategorias(response.data)
+        setLoaded(true)
+    }
+
+    if(!loaded){
+        return(
+            <div></div>
+        )
+    }else{
+        return(
+            <>
+                <div className="container-fluid pt-5">
+                    <div className="row px-xl-5 pb-3">
+                        <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div className="d-flex align-items-center border mb-4 bg-light" style={{padding: "30px"}}>
+                                <h1 className="text-primary m-0 mr-3"><FontAwesomeIcon icon={faCheck}/></h1>
+                                <h5 className="font-weight-semi-bold m-0">Calidad óptima</h5>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div className="d-flex align-items-center border mb-4 bg-light" style={{padding: "30px"}}>
+                                <h1 className="text-primary m-0 mr-3"><FontAwesomeIcon icon={faShippingFast}/></h1>
+                                <h5 className="font-weight-semi-bold m-0">Envío rápido</h5>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div className="d-flex align-items-center border mb-4 bg-light" style={{padding: "30px"}}>
+                                <h1 className="text-primary m-0 mr-3"><FontAwesomeIcon icon={faExchangeAlt}/></h1>
+                                <h5 className="font-weight-semi-bold m-0">Devolución 14 días</h5>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div className="d-flex align-items-center border mb-4 bg-light" style={{padding: "30px"}}>
+                                <h1 className="text-primary m-0 mr-3"><FontAwesomeIcon icon={faPhoneVolume}/></h1>
+                                <h5 className="font-weight-semi-bold m-0">Soporte 24/7</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="container-fluid pt-5">
+                    <div className="row px-xl-5 pb-3">
+                        <Category nombre={categorias[0].categoria} cantidad={cCategorias[0]} foto={foto}/>
+                        <Category nombre={categorias[1].categoria} cantidad={cCategorias[1]} foto={foto}/>
+                        <Category nombre={categorias[2].categoria} cantidad={cCategorias[2]} foto={foto}/>
+                    </div>
+                </div>
+                <div className="container-fluid pt-5">
+                    <div className="text-center mb-4">
+                        <h2 className="section-title px-5"><span className="px-2">Lo más vendido</span></h2>
+                    </div>
+                    <div className="row px-xl-5 pb-3">
+                        {articulos.slice(0,8).map((articulo) => (
+                            <Product key={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={foto} tam={3}/>
+                        ))}
+                    </div>
+                </div>
+            </>
+        )
+    }
+}
+
+export default Home
