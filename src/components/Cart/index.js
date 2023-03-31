@@ -1,10 +1,74 @@
 import foto from '../../img/prueba.png' //temporal
 
+import { useEffect, useState } from 'react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMinus, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
+import axios from 'axios'
+
+import Topbar from '../Topbar'
+
 const Cart = () => {
+
+    const [articulos, setArticulos] = useState([])
+    const [cantidades, setCantidades] = useState([])
+    const [subtotal, setSubtotal] = useState(0)
+    const [envio, setEnvio] = useState(0)
+
+    const endpoint = 'http://localhost:8000/api/lista'
+
+    const getArticulosLista = async () => {
+        const listaCompra = Object.values({...localStorage})
+        
+        const idsArticulo = []
+        const cargaCantidades = []
+
+        for(let articulo of listaCompra){
+            idsArticulo.push(JSON.parse(articulo).id_articulo)
+            cargaCantidades.push(JSON.parse(articulo).cantidad)       
+        }
+
+        setCantidades(cargaCantidades)
+
+        await axios.get(`${endpoint}/${JSON.stringify(idsArticulo)}`).then((response) => {
+            if(articulos.length===0) setArticulos(response.data)
+        })  
+    }
+
+    useEffect(() => {
+        getArticulosLista()
+
+        let suma = 0
+        for(let i=0; i<articulos.length; i++){
+            suma += articulos[i].precio*cantidades[i]*1.21
+        }
+
+        setSubtotal((Math.round((suma) * 100) / 100).toFixed(2))
+        setEnvio((Math.round((subtotal*0.05) * 100) / 100).toFixed(2))
+    }, [articulos])
+
+    const eliminarArticulo = (id) => {        
+        localStorage.removeItem("articulo"+id)
+        console.log(localStorage.length)
+        document.getElementById("fila"+id).style.display = "none"
+
+        let nuevoSubtotal = subtotal
+
+        for(let i=0; i<articulos.length; i++){
+            if(articulos[i].id === id) nuevoSubtotal -= articulos[i].precio*cantidades[i]*1.21
+        }
+
+        if(document.getElementsByClassName("filas-tabla").length>0){
+            setSubtotal((Math.round((nuevoSubtotal) * 100) / 100).toFixed(2))
+            setEnvio((Math.round((nuevoSubtotal*0.05) * 100) / 100).toFixed(2))
+        }else{
+            setSubtotal(0)
+            setEnvio(0)
+        }
+    }
+
     return(
         <div className="container-fluid pt-5">
             <div className="row px-xl-5">
@@ -12,151 +76,59 @@ const Cart = () => {
                     <table className="table table-bordered text-center mb-0">
                         <thead className="bg-secondary text-dark">
                             <tr>
-                                <th>Products</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
                                 <th>Total</th>
-                                <th>Remove</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
+                        {
+                        articulos.length!==0
+                        ?
+                        <tbody className="align-middle">
+                            {articulos.map((articulo, articuloIndex) => (
+                                <tr className="filas-tabla" key={articuloIndex} id={"fila"+articulo.id}>
+                                    <td className="align-middle">{articulo.nombre}</td>
+                                    <td className="align-middle">{articulo.precio} €</td>
+                                    <td className="align-middle">
+                                        {cantidades[articuloIndex]}
+                                    </td>
+                                    <td className="align-middle">{(Math.round((articulo.precio*cantidades[articuloIndex]*1.21) * 100) / 100).toFixed(2)} €</td>
+                                    <td className="align-middle"><button onClick={() => {eliminarArticulo(articulo.id)}} className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
+                                </tr>
+                            ))}                        
+                        </tbody>
+                        :
                         <tbody className="align-middle">
                             <tr>
-                                <td className="align-middle">Creality Ender 3 MAX</td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle">
-                                    <div className="input-group quantity mx-auto" style={{width: "100px"}}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-minus" >
-                                                <FontAwesomeIcon icon={faMinus}/>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm bg-secondary text-center" defaultValue="1"></input>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-plus">
-                                                <FontAwesomeIcon icon={faPlus}/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle"><button className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
-                            </tr>
-                            <tr>
-                                <td className="align-middle">Creality Ender 3 MAX</td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle">
-                                    <div className="input-group quantity mx-auto" style={{width: "100px"}}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-minus" >
-                                                <FontAwesomeIcon icon={faMinus}/>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm bg-secondary text-center" defaultValue="1"></input>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-plus">
-                                                <FontAwesomeIcon icon={faPlus}/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle"><button className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
-                            </tr>
-                            <tr>
-                                <td className="align-middle">Creality Ender 3 MAX</td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle">
-                                    <div className="input-group quantity mx-auto" style={{width: "100px"}}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-minus" >
-                                                <FontAwesomeIcon icon={faMinus}/>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm bg-secondary text-center" defaultValue="1"></input>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-plus">
-                                                <FontAwesomeIcon icon={faPlus}/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle"><button className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
-                            </tr>
-                            <tr>
-                                <td className="align-middle">Creality Ender 3 MAX</td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle">
-                                    <div className="input-group quantity mx-auto" style={{width: "100px"}}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-minus" >
-                                                <FontAwesomeIcon icon={faMinus}/>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm bg-secondary text-center" defaultValue="1"></input>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-plus">
-                                                <FontAwesomeIcon icon={faPlus}/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle"><button className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
-                            </tr>
-                            <tr>
-                                <td className="align-middle">Creality Ender 3 MAX</td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle">
-                                    <div className="input-group quantity mx-auto" style={{width: "100px"}}>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-minus" >
-                                                <FontAwesomeIcon icon={faMinus}/>
-                                            </button>
-                                        </div>
-                                        <input type="text" className="form-control form-control-sm bg-secondary text-center" defaultValue="1" min="1"></input>
-                                        <div className="input-group-btn">
-                                            <button className="btn btn-sm btn-primary btn-plus">
-                                                <FontAwesomeIcon icon={faPlus}/>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="align-middle">$150</td>
-                                <td className="align-middle"><button className="btn btn-sm btn-primary"><FontAwesomeIcon icon={faTrash}/></button></td>
+                                <td className="align-middle" colSpan={5}>No se ha añadido nada al carrito.</td>
                             </tr>
                         </tbody>
+                        }
                     </table>
                 </div>
                 <div className="col-lg-4">
-                    <form className="mb-5" action="">
-                        <div className="input-group">
-                            <input type="text" className="form-control p-4" placeholder="Coupon Code"></input>
-                            <div className="input-group-append">
-                                <button className="btn btn-primary">Apply Coupon</button>
-                            </div>
-                        </div>
-                    </form>
                     <div className="card border-secondary mb-5">
                         <div className="card-header bg-secondary border-0">
-                            <h4 className="font-weight-semi-bold m-0">Cart Summary</h4>
+                            <h4 className="font-weight-semi-bold m-0">Resumen del carrito</h4>
                         </div>
                         <div className="card-body">
                             <div className="d-flex justify-content-between mb-3 pt-1">
                                 <h6 className="font-weight-medium">Subtotal</h6>
-                                <h6 className="font-weight-medium">$150</h6>
+                                <h6 className="font-weight-medium">{subtotal} €</h6>
                             </div>
                             <div className="d-flex justify-content-between">
-                                <h6 className="font-weight-medium">Shipping</h6>
-                                <h6 className="font-weight-medium">$10</h6>
+                                <h6 className="font-weight-medium">Costes de envío</h6>
+                                <h6 className="font-weight-medium">{envio} €</h6>
                             </div>
                         </div>
                         <div className="card-footer border-secondary bg-transparent">
                             <div className="d-flex justify-content-between mt-2">
-                                <h5 className="font-weight-bold">Total</h5>
-                                <h5 className="font-weight-bold">$160</h5>
+                                <h5 className="font-weight-bold">Total</h5>                                
+                                <h5 className="font-weight-bold">{(Math.round((Number(subtotal) + Number(envio)) * 100) / 100).toFixed(2)} €</h5>
                             </div>
-                            <Link className="btn btn-block btn-primary my-3 py-3" to="/checkout">Proceed To Checkout</Link>
+                            <Link className="btn btn-block btn-primary my-3 py-3" to="/checkout">Realizar pedido</Link>
                         </div>
                     </div>
                 </div>

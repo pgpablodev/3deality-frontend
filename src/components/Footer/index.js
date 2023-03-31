@@ -11,7 +11,6 @@ const Footer = () => {
                     <Link className="text-decoration-none" to="/">
                         <h1 className="mb-4 display-5 font-weight-semi-bold"><span className="text-primary font-weight-bold border border-primary px-1 mr-1">3D</span>eality</h1>
                     </Link>
-                    <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
                     <p className="mb-2"><span className="text-primary mr-3"><FontAwesomeIcon icon={faMapMarker}/></span>Calle Falsa 123, Zaragoza, España</p>
                     <p className="mb-2"><span className="text-primary mr-3"><FontAwesomeIcon icon={faEnvelope}/></span>soporte@3deality.com</p>
                     <p className="mb-0"><span className="text-primary mr-3"><FontAwesomeIcon icon={faPhone}/></span>+34 123 45 67 89</p>

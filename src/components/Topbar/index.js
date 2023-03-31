@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faHeart, faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const Topbar = () => {
-    
+
+    const [numCarrito, setNumCarrito] = useState(localStorage.length)
+
+    useEffect(() => {
+        setNumCarrito(localStorage.length)
+    }, [localStorage.length])
+     
     return(
         <div className="container-fluid">
             <div className="row bg-secondary py-2 px-xl-5">
@@ -40,7 +47,7 @@ const Topbar = () => {
                     </a>
                     <Link to="/cart" className="btn border">
                     <span className="text-primary"><FontAwesomeIcon icon={faShoppingCart}/></span>
-                        <span className="badge">0</span>
+                        <span className="badge">{numCarrito}</span>
                     </Link>
                 </div>
             </div>

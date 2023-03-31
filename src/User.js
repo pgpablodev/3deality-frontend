@@ -1,23 +1,18 @@
-class User {
+class User{
 
-    constructor() {
+    constructor(){
         this.init()
     }
 
-    init() {
+    init(){
+        this.id = sessionStorage.getItem('id')
         this.name = sessionStorage.getItem('userName')
         this.email = sessionStorage.getItem('userEmail')
         this.loggedIn = sessionStorage.getItem('userLoggedIn')
     }
 
-    /**
-     *
-     * @param data object
-     * @param data.name string
-     * @param data.email string
-     * @param callback function
-     */
-    authenticated(data, callback) {
+    authenticated(data, callback){
+        sessionStorage.setItem('id', data.id)
         sessionStorage.setItem('userName', data.name)
         sessionStorage.setItem('userEmail', data.email)
         sessionStorage.setItem('userLoggedIn', true)
@@ -27,26 +22,15 @@ class User {
         callback()
     }
 
-    /**
-     *
-     * @return {boolean}
-     */
-    isLoggedIn() {
+    isLoggedIn(){
         return Boolean(this.loggedIn) === true
     }
 
-    /**
-     * Remove all user's data from local storage
-     */
-    destroy() {
+    destroy(){
         sessionStorage.clear()
     }
 
-    /**
-     *
-     * @param callback function
-     */
-    logout(callback) {
+    logout(callback){
         this.destroy()
         
         callback()
