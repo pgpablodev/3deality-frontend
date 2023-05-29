@@ -5,17 +5,17 @@ class User{
     }
 
     init(){
-        this.id = sessionStorage.getItem('id')
-        this.name = sessionStorage.getItem('userName')
-        this.email = sessionStorage.getItem('userEmail')
-        this.loggedIn = sessionStorage.getItem('userLoggedIn')
+        this.id = localStorage.getItem('id')
+        this.name = localStorage.getItem('userName')
+        this.email = localStorage.getItem('userEmail')
+        this.loggedIn = localStorage.getItem('userLoggedIn')
     }
 
     authenticated(data, callback){
-        sessionStorage.setItem('id', data.id)
-        sessionStorage.setItem('userName', data.name)
-        sessionStorage.setItem('userEmail', data.email)
-        sessionStorage.setItem('userLoggedIn', true)
+        localStorage.setItem('id', data.id)
+        localStorage.setItem('userName', data.name)
+        localStorage.setItem('userEmail', data.email)
+        localStorage.setItem('userLoggedIn', true)
 
         this.init()
 
@@ -27,7 +27,7 @@ class User{
     }
 
     destroy(){
-        sessionStorage.clear()
+        localStorage.clear()
     }
 
     logout(callback){

@@ -9,6 +9,7 @@ import Item from '../src/components/Item'
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
 import Account from './components/Account'
+import PDFPedido from './components/PDFPedido'
 
 function App() {
   return(
@@ -22,6 +23,7 @@ function App() {
             <Route path="/cart" element={<Cart />}/>
             <Route path="/checkout" element={<Checkout />}/>
             <Route path="/account" element={<Account />}/>
+            <Route path="/pdfpedido/:id" element={<PDFPedido />}/>
           </Route>
       </Routes>
     </Router>

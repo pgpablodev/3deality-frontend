@@ -1,15 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 const Topbar = () => {
 
-    const [numCarrito, setNumCarrito] = useState(localStorage.length)
+    const [numCarrito, setNumCarrito] = useState(localStorage.length-4) //le resto 4 porque siempre hay 4 registros en localStorage asociados a las variables de sesión
 
-    useEffect(() => {
-        setNumCarrito(localStorage.length)
+    useEffect(() => {    
+        if(localStorage.getItem('id')===null)
+            setNumCarrito(0)   
+        else
+            setNumCarrito(localStorage.length-4)
     }, [localStorage.length])
      
     return(
@@ -41,12 +44,8 @@ const Topbar = () => {
                     
                 </div>
                 <div className="col-lg-3 col-6 text-right">
-                    <a href="" className="btn border">
-                        <span className="text-primary"><FontAwesomeIcon icon={faHeart}/></span>
-                        <span className="badge">0</span>
-                    </a>
                     <Link to="/cart" className="btn border">
-                    <span className="text-primary"><FontAwesomeIcon icon={faShoppingCart}/></span>
+                        <span className="text-primary"><FontAwesomeIcon icon={faShoppingCart}/></span>
                         <span className="badge">{numCarrito}</span>
                     </Link>
                 </div>

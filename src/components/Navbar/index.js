@@ -5,7 +5,7 @@ const Navbar = ({imagen}) => {
 
     let accountHTML = ""
 
-    if(sessionStorage.getItem('userName')===null){
+    if(localStorage.getItem('userName')===null){
         accountHTML = <div className="navbar-nav ml-auto py-0">
             <Link to="/account" className="nav-item nav-link">Iniciar sesión</Link>
             <Link to="/account" className="nav-item nav-link">Registrarse</Link>

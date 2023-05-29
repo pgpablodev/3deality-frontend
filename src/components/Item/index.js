@@ -1,10 +1,10 @@
 import Product from '../Product'
-import foto from '../../img/prueba.png' //temporal
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinus, faPlus, faShoppingCart, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faMinus, faPlus, faShoppingCart, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 import { faFacebook, faLinkedin, faPinterest, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
@@ -106,7 +106,7 @@ const Item = () => {
     }
 
     const aniadeACarrito = () => {
-        if(sessionStorage.getItem('userLoggedIn')===null){
+        if(localStorage.getItem('userLoggedIn')===null){
             window.location.replace('/#/account')
         }else{
             const datos = {
@@ -125,10 +125,11 @@ const Item = () => {
         <>
             <div className="container-fluid py-5 text-left">
                 <div className="row px-xl-5">
-                    <div className="col-lg-5 pb-5">
-                        <img className="w-75" src={foto} alt="Image"></img>
+                    <div className="col-lg-5 pb-5">                        
+                        <img className="w-75" src={"http://localhost:8000"+articulo.foto} alt="Image"></img>
                     </div>
                     <div className="col-lg-7 pb-5">
+                    <Link to={"/shop/"}><button id="btnVolver" className="btn btn-primary px-3 mb-4"><span className="mr-1"><FontAwesomeIcon icon={faArrowLeft}/></span>&emsp;Volver a la tienda</button></Link>
                         <h3 className="font-weight-semi-bold">{articulo.nombre}</h3>
                         <div className="d-flex mb-3">
                             <div className="text-primary mr-2">
@@ -184,10 +185,9 @@ const Item = () => {
                     productos.length>0
                     ?
                     <>
-                    <Product key={1} id={productos[0].id} nombre={productos[0].nombre} precio={Number(productos[0].precio)} foto={foto} tam={3}/>
-                    <Product key={2} id={productos[1].id} nombre={productos[1].nombre} precio={Number(productos[1].precio)} foto={foto} tam={3}/>
-                    <Product key={3} id={productos[2].id} nombre={productos[2].nombre} precio={Number(productos[2].precio)} foto={foto} tam={3}/>
-                    <Product key={4} id={productos[3].id} nombre={productos[3].nombre} precio={Number(productos[3].precio)} foto={foto} tam={3}/>
+                    <Product key={1} id={productos[0].id} nombre={productos[0].nombre} precio={Number(productos[0].precio)} foto={"http://localhost:8000"+productos[0].foto} tam={4}/>
+                    <Product key={2} id={productos[1].id} nombre={productos[1].nombre} precio={Number(productos[1].precio)} foto={"http://localhost:8000"+productos[1].foto} tam={4}/>
+                    <Product key={3} id={productos[2].id} nombre={productos[2].nombre} precio={Number(productos[2].precio)} foto={"http://localhost:8000"+productos[2].foto} tam={4}/>
                     </>
                     :
                     <></>

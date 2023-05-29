@@ -4,8 +4,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import foto from '../../img/prueba.png' //temporal
-
 const endpoint = 'http://localhost:8000/api'
 
 const Shop = () => {
@@ -31,7 +29,7 @@ const Shop = () => {
         
         let resultado = []  
         for(let i=0;i<response.data.length;i++)
-            resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={foto} tam={4}/>)
+            resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"http://localhost:8000"+response.data[i].foto} tam={4}/>)
         
         if(resultado.length<9)
             setCurrentItems(resultado)
@@ -81,7 +79,7 @@ const Shop = () => {
         }
         const items = []
         articulos.slice(from,to).map((articulo) => (
-            items.push(<Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={foto} tam={4}/>)
+            items.push(<Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={"http://localhost:8000"+articulo.foto} tam={4}/>)
         )) 
         setCurrentItems(items)
     }, [articulos, from, to])
@@ -117,9 +115,9 @@ const Shop = () => {
             document.getElementById("nav-btns").style.display = "none" 
             
             let resultado = []  
-            for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={foto} tam={4}/>)
-            
+            for(let i=0;i<response.data.length;i++){
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"http://localhost:8000"+response.data[i].foto} tam={4}/>)
+            }
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
             }
@@ -138,15 +136,11 @@ const Shop = () => {
         axios.get(`${endpoint}/filter/${opcs[0]}/${opcs[1]}/${opcs[2]}/${opcs[3]}`).then((response) => {
             setCurrentItems([])
 
-            if(response.data.length>9){
-                document.getElementById("nav-btns").style.display = "none" 
-            }else{
-                document.getElementById("nav-btns").style.display = "block" 
-            }
+            document.getElementById("nav-btns").style.display = "none" 
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"http://localhost:8000"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -166,15 +160,11 @@ const Shop = () => {
         axios.get(`${endpoint}/filter/${opcs[0]}/${opcs[1]}/${opcs[2]}/${opcs[3]}`).then(response => {
             setCurrentItems([])
 
-            if(response.data.length>9){
-                document.getElementById("nav-btns").style.display = "none" 
-            }else{
-                document.getElementById("nav-btns").style.display = "block" 
-            }
+            document.getElementById("nav-btns").style.display = "none"
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"http://localhost:8000"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -194,15 +184,11 @@ const Shop = () => {
         axios.get(`${endpoint}/filter/${opcs[0]}/${opcs[1]}/${opcs[2]}/${opcs[3]}`).then(response => {
             setCurrentItems([])
 
-            if(response.data.length>9){
-                document.getElementById("nav-btns").style.display = "none" 
-            }else{
-                document.getElementById("nav-btns").style.display = "block" 
-            }
+            document.getElementById("nav-btns").style.display = "none"
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"http://localhost:8000"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -461,24 +447,6 @@ const Shop = () => {
                                     </div>
                                 </div>
                             </form>
-                            <div>
-                                <button className="btn border dropdown-toggle" type="button" onClick={() => {
-                                    const desplegable = document.getElementById("triggerId")
-                                    if(desplegable.classList.contains("show")){
-                                        desplegable.classList.remove("show")
-                                    }else{
-                                        desplegable.classList.add("show")
-                                        desplegable.classList.add("mr-3")
-                                        desplegable.style.top = "30px"
-                                    }
-                                }} >
-                                    Ordenar
-                                </button>
-                                <div className="dropdown-menu dropdown-menu-right" id="triggerId">
-                                    <div className="dropdown-item">Más recientes</div>
-                                    <div className="dropdown-item">Mejor valorados</div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     {
@@ -498,205 +466,3 @@ const Shop = () => {
 }
 
 export default Shop;
-
-/*useEffect(() => {
-        getArticulos()
-        if(state!==null){
-            handleSearch(state.busqueda)
-        }
-    })
-
-    const getArticulos = async () => {
-        const response = await axios.get(`${endpoint}/articulos`)
-        setArticulos(response.data)
-    }
-
-    useEffect(() => {
-        fetch("http://localhost/proyectos/backend-3deality/contadoresPrecios.php")
-            .then((response) => {
-                return response.json()
-            })
-            .then((cPrecios) => {
-                setCPrecios(cPrecios)
-            })
-    }, [])
-
-    useEffect(() => {
-        fetch("http://localhost/proyectos/backend-3deality/contadoresImpresoras.php")
-            .then((response) => {
-                return response.json()
-            })
-            .then((cImpresoras) => {
-                setCImpresoras(cImpresoras)
-            })
-    }, [])
-
-    useEffect(() => {
-        fetch("http://localhost/proyectos/backend-3deality/contadoresAccesorios.php")
-            .then((response) => {
-                return response.json()
-            })
-            .then((cAccesorios) => {
-                setCAccesorios(cAccesorios)
-            })
-    }, [])
-
-    useEffect(() => {
-        fetch("http://localhost/proyectos/backend-3deality/contadoresMateriales.php")
-            .then((response) => {
-                return response.json()
-            })
-            .then((cMateriales) => {
-                setCMateriales(cMateriales)
-            })
-    }, [])
-
-    const handleSearch = (busqueda) => {
-        if(busqueda==="")
-            document.getElementById("nav-btns").style.display = "block"
-        else
-            document.getElementById("nav-btns").style.display = "none"
-        let resultado = []        
-
-        fetch("http://localhost/proyectos/backend-3deality/buscaArticulos.php?search="+busqueda)
-            .then((response) => {
-                return response.json()
-            })
-            .then((articulos) => {
-                setCurrentItems([])
-                for(let i=0;i<articulos.length;i++)
-                    resultado.push(<Product key={articulos[i].id} id={articulos[i].id} nombre={articulos[i].nombre} precio={Number(articulos[i].precio)} foto={foto} tam={4}/>)
-                if(resultado.length<9)
-                    setCurrentItems(resultado)
-                else
-                    setCurrentItems(resultado.slice(0,9))
-            })
-    }
-
-    const items = []
-    
-    for(let i=0;i<articulos.length;i++)
-        items.push(<Product key={articulos[i][0]} id={articulos[i][0]} nombre={articulos[i][1]} precio={Number(articulos[i][2])} foto={"http://localhost/proyectos/backend-3deality/"+articulos[i][7]} tam={4}/>)
-    
-    const botonesPagina = []
-    
-    for(let i=0;i<Math.ceil(cPrecios[5]/9);i++){
-        if(i===0)
-            botonesPagina.push(<li key={i} className="page-item active mr-2"><button className="page-link">1</button></li>)
-        else
-            botonesPagina.push(<li key={i} className="page-item mr-2"><button className="page-link">{i+1}</button></li>)
-    }
-
-    useEffect(() => {        
-        let pageLinks = document.getElementsByClassName("page-link")
-        let pageItems = document.getElementsByClassName("page-item")
-        for(let i=0;i<pageLinks.length;i++){
-            pageLinks[i].addEventListener('click', () => {
-                document.getElementById("name-search").value = ""
-                let desde = (Number(pageLinks[i].innerText)-1)*9
-                let hasta = desde + 9
-                let anadir = []
-                for(let q=desde;q<hasta;q++){
-                    anadir.push(items[q])
-                }
-                setCurrentItems(anadir)
-                for(let j=0;j<pageItems.length;j++)
-                    pageItems[j].classList.remove("active") 
-                pageItems[i].classList.add("active")            
-            })
-        } 
-    }, [items])
-
-    const handleSort = (sort) => {
-        fetch("http://localhost/proyectos/backend-3deality/ordenaArticulos.php?sort=" +sort)
-            .then((response) => {
-                return response.json()
-            })
-            .then((articulos) => {
-                while(items.length>0) items.pop()
-                for(let i=0;i<articulos.length;i++)
-                    items.push(<Product key={articulos[i][0]} id={articulos[i][0]} nombre={articulos[i][1]} precio={Number(articulos[i][2])} foto={"http://localhost/proyectos/backend-3deality/"+articulos[i][7]} tam={4}/>)
-                const current = []
-                for(let i=0;i<items.length;i++){
-                    current.push(items[i])
-                }
-                setCurrentItems(current)
-                document.getElementById("nav-btns").style.display = "none"
-                document.getElementById("triggerId").classList.remove("show")
-            })
-    }
-
-    const handlePriceFilter = (min, max, all) => {
-        
-        if(all) toggleSelectores("precios")
-        
-        fetch("http://localhost/proyectos/backend-3deality/filtraPrecios.php?min=" +min +"&max=" +max)
-            .then((response) => {
-                return response.json()
-            })
-            .then((articulos) => {
-                while(items.length>0) items.pop()
-                for(let i=0;i<articulos.length;i++)
-                    items.push(<Product key={articulos[i][0]} id={articulos[i][0]} nombre={articulos[i][1]} precio={Number(articulos[i][2])} foto={"http://localhost/proyectos/backend-3deality/"+articulos[i][7]} tam={4}/>)
-                const current = []
-                for(let i=0;i<items.length;i++){
-                    current.push(items[i])
-                }
-                setCurrentItems(current)
-                document.getElementById("nav-btns").style.display = "none"
-                document.getElementById("triggerId").classList.remove("show")
-            })
-    }
-
-    const handleFilter = (categoria, tipo, all) => {
-
-        if(all) toggleSelectores(categoria)
-
-        fetch("http://localhost/proyectos/backend-3deality/filtra" +categoria +".php?tipo=" +tipo)
-            .then((response) => {
-                return response.json()
-            })
-            .then((articulos) => {
-                while(items.length>0) items.pop()
-                for(let i=0;i<articulos.length;i++)
-                    items.push(<Product key={articulos[i][0]} id={articulos[i][0]} nombre={articulos[i][1]} precio={Number(articulos[i][2])} foto={"http://localhost/proyectos/backend-3deality/"+articulos[i][7]} tam={4}/>)
-                const current = []
-                for(let i=0;i<items.length;i++){
-                    current.push(items[i])
-                }
-                setCurrentItems(current)
-                document.getElementById("nav-btns").style.display = "none"
-                document.getElementById("triggerId").classList.remove("show")
-            })
-    }*/
-
-    /*
-    const botonesPagina = []
-    
-    for(let i=0;i<Math.ceil(cPrecios[5]/9);i++){
-        if(i===0)
-            botonesPagina.push(<li key={i} className="page-item active mr-2"><button className="page-link">1</button></li>)
-        else
-            botonesPagina.push(<li key={i} className="page-item mr-2"><button className="page-link">{i+1}</button></li>)
-    }
-
-    useEffect(() => {        
-        let pageLinks = document.getElementsByClassName("page-link")
-        let pageItems = document.getElementsByClassName("page-item")
-        for(let i=0;i<pageLinks.length;i++){
-            pageLinks[i].addEventListener('click', () => {
-                document.getElementById("name-search").value = ""
-                let desde = (Number(pageLinks[i].innerText)-1)*9
-                let hasta = desde + 9
-                let anadir = []
-                for(let q=desde;q<hasta;q++){
-                    anadir.push(items[q])
-                }
-                setCurrentItems(anadir)
-                for(let j=0;j<pageItems.length;j++)
-                    pageItems[j].classList.remove("active") 
-                pageItems[i].classList.add("active")            
-            })
-        } 
-    }, [items])
-    */

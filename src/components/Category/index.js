@@ -6,7 +6,7 @@ const Category = ({nombre, cantidad, foto}) => {
                     <h5 className="font-weight-semi-bold m-0 text-left col-md-6">{nombre}</h5>
                     <p className="text-right col-md-6">{cantidad} productos</p>
                 </div>
-                <a href="" className="cat-img position-relative overflow-hidden mb-3">
+                <a href="/#/shop" className="cat-img position-relative overflow-hidden mb-3">
                     <img className="img-fluid" src={foto} alt=""></img>
                 </a>                
             </div>
