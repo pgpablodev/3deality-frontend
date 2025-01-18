@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 import axios from 'axios'
 
-const endpoint = 'http://localhost:8000/api'
+const endpoint = 'https://pablopovar.tblabs.es/api'
 
 const Home = () => {
     const [loaded, setLoaded] = useState(false)
@@ -30,12 +30,12 @@ const Home = () => {
     const getAllCategorias = async () => {
         const response = await axios.get(`${endpoint}/categorias`)
         setCategorias(response.data)
+        setLoaded(true)
     }
 
     const countAllCategorias = async () => {
         const response = await axios.get(`${endpoint}/ccategorias`)
-        setCCategorias(response.data)
-        setLoaded(true)
+        setCCategorias(response.data)        
     }
 
     if(!loaded){
@@ -75,9 +75,9 @@ const Home = () => {
                 </div>
                 <div className="container-fluid pt-5">
                     <div className="row px-xl-5 pb-3">
-                        <Category nombre={categorias[0].categoria} cantidad={cCategorias[0]} foto={"http://localhost:8000"+categorias[0].foto}/>
-                        <Category nombre={categorias[1].categoria} cantidad={cCategorias[1]} foto={"http://localhost:8000"+categorias[1].foto}/>
-                        <Category nombre={categorias[2].categoria} cantidad={cCategorias[2]} foto={"http://localhost:8000"+categorias[2].foto}/>
+                        <Category nombre={categorias[0].categoria} cantidad={cCategorias[0]} foto={"https://pablopovar.tblabs.es"+categorias[0].foto}/>
+                        <Category nombre={categorias[1].categoria} cantidad={cCategorias[1]} foto={"https://pablopovar.tblabs.es"+categorias[1].foto}/>
+                        <Category nombre={categorias[2].categoria} cantidad={cCategorias[2]} foto={"https://pablopovar.tblabs.es"+categorias[2].foto}/>
                     </div>
                 </div>
                 <div className="container-fluid pt-5">
@@ -86,7 +86,7 @@ const Home = () => {
                     </div>
                     <div className="row px-xl-5 pb-3">
                         {articulos.slice(0,8).map((articulo) => (
-                            <Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={"http://localhost:8000"+articulo.foto} tam={3}/>
+                            <Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={"https://pablopovar.tblabs.es"+articulo.foto} tam={3}/>
                         ))}
                     </div>
                 </div>

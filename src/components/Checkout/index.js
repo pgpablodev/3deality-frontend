@@ -10,7 +10,7 @@ const Checkout = () => {
     const [envio, setEnvio] = useState(0)
     const [usuario, setUsuario] = useState({})
 
-    const endpoint = 'http://localhost:8000/api'
+    const endpoint = 'https://pablopovar.tblabs.es/api'
 
     const getArticulosLista = async () => {
         const keys = Object.keys({...localStorage})

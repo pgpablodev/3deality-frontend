@@ -14,7 +14,7 @@ import LineaPedido from '../../LineaPedido'
 
 const Item = () => {   
 
-    const endpoint = 'http://localhost:8000/api/articulo'
+    const endpoint = 'https://pablopovar.tblabs.es/api/articulo'
     
     const [articulo, setArticulo] = useState([])
     const [productos, setProductos] = useState([])
@@ -28,7 +28,7 @@ const Item = () => {
         getArticuloById()
 
         const getProductosSugeridos = async () => {
-            const response = await axios.get(`http://localhost:8000/api/sugeridos`)
+            const response = await axios.get(`https://pablopovar.tblabs.es/api/sugeridos`)
             setProductos(response.data)
         }
 
@@ -126,7 +126,7 @@ const Item = () => {
             <div className="container-fluid py-5 text-left">
                 <div className="row px-xl-5">
                     <div className="col-lg-5 pb-5">                        
-                        <img className="w-75" src={"http://localhost:8000"+articulo.foto} alt="Image"></img>
+                        <img className="w-75" src={"https://pablopovar.tblabs.es"+articulo.foto} alt="Image"></img>
                     </div>
                     <div className="col-lg-7 pb-5">
                     <Link to={"/shop/"}><button id="btnVolver" className="btn btn-primary px-3 mb-4"><span className="mr-1"><FontAwesomeIcon icon={faArrowLeft}/></span>&emsp;Volver a la tienda</button></Link>
@@ -185,9 +185,9 @@ const Item = () => {
                     productos.length>0
                     ?
                     <>
-                    <Product key={1} id={productos[0].id} nombre={productos[0].nombre} precio={Number(productos[0].precio)} foto={"http://localhost:8000"+productos[0].foto} tam={4}/>
-                    <Product key={2} id={productos[1].id} nombre={productos[1].nombre} precio={Number(productos[1].precio)} foto={"http://localhost:8000"+productos[1].foto} tam={4}/>
-                    <Product key={3} id={productos[2].id} nombre={productos[2].nombre} precio={Number(productos[2].precio)} foto={"http://localhost:8000"+productos[2].foto} tam={4}/>
+                    <Product key={1} id={productos[0].id} nombre={productos[0].nombre} precio={Number(productos[0].precio)} foto={"https://pablopovar.tblabs.es"+productos[0].foto} tam={4}/>
+                    <Product key={2} id={productos[1].id} nombre={productos[1].nombre} precio={Number(productos[1].precio)} foto={"https://pablopovar.tblabs.es"+productos[1].foto} tam={4}/>
+                    <Product key={3} id={productos[2].id} nombre={productos[2].nombre} precio={Number(productos[2].precio)} foto={"https://pablopovar.tblabs.es"+productos[2].foto} tam={4}/>
                     </>
                     :
                     <></>
