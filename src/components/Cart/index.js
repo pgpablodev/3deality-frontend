@@ -13,7 +13,7 @@ const Cart = () => {
     const [subtotal, setSubtotal] = useState(0)
     const [envio, setEnvio] = useState(0)
 
-    const endpoint = 'https://pablopovar.tblabs.es/api/lista'
+    const endpoint = 'https://pgpablo.helioho.st/api/lista'
 
     const getArticulosLista = async () => {
         const keys = Object.keys({...localStorage})

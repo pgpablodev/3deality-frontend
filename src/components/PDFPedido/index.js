@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
 const PDFPedido = () => {
 
-    const endpoint = 'https://pablopovar.tblabs.es/api'
+    const endpoint = 'https://pgpablo.helioho.st/api'
 
     const [pedido, setPedido] = useState({})
     const [loaded, setLoaded] = useState(false)

@@ -8,7 +8,7 @@ import Swal from "sweetalert2"
 
 const Account = () => {
 
-    const endpoint = 'https://pablopovar.tblabs.es/api'
+    const endpoint = 'https://pgpablo.helioho.st/api'
 
     const [pedidos, setPedidos] = useState([])
     const [cliente, setCliente] = useState({})

@@ -4,7 +4,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const endpoint = 'https://pablopovar.tblabs.es/api'
+const endpoint = 'https://pgpablo.helioho.st/api'
 
 const Shop = () => {
     
@@ -29,7 +29,7 @@ const Shop = () => {
         
         let resultado = []  
         for(let i=0;i<response.data.length;i++)
-            resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pablopovar.tblabs.es"+response.data[i].foto} tam={4}/>)
+            resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pgpablo.helioho.st"+response.data[i].foto} tam={4}/>)
         
         if(resultado.length<9)
             setCurrentItems(resultado)
@@ -79,7 +79,7 @@ const Shop = () => {
         }
         const items = []
         articulos.slice(from,to).map((articulo) => (
-            items.push(<Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={"https://pablopovar.tblabs.es"+articulo.foto} tam={4}/>)
+            items.push(<Product key={articulo.id} id={articulo.id} nombre={articulo.nombre} precio={articulo.precio} foto={"https://pgpablo.helioho.st"+articulo.foto} tam={4}/>)
         )) 
         setCurrentItems(items)
     }, [articulos, from, to])
@@ -116,7 +116,7 @@ const Shop = () => {
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++){
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pablopovar.tblabs.es"+response.data[i].foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pgpablo.helioho.st"+response.data[i].foto} tam={4}/>)
             }
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -140,7 +140,7 @@ const Shop = () => {
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pablopovar.tblabs.es"+response.data[i].foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pgpablo.helioho.st"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -164,7 +164,7 @@ const Shop = () => {
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pablopovar.tblabs.es"+response.data[i].foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pgpablo.helioho.st"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)
@@ -188,7 +188,7 @@ const Shop = () => {
             
             let resultado = []  
             for(let i=0;i<response.data.length;i++)
-                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pablopovar.tblabs.es"+response.data[i].foto} tam={4}/>)
+                resultado.push(<Product key={response.data[i].id} id={response.data[i].id} nombre={response.data[i].nombre} precio={Number(response.data[i].precio)} foto={"https://pgpablo.helioho.st"+response.data[i].foto} tam={4}/>)
             
             if(response.data.length===0){
                 resultado.push(<h2 style={{marginLeft: "15%"}} className="has-error">No se han encontrado artículos para esta selección.</h2>)

@@ -10,7 +10,7 @@ const Checkout = () => {
     const [envio, setEnvio] = useState(0)
     const [usuario, setUsuario] = useState({})
 
-    const endpoint = 'https://pablopovar.tblabs.es/api'
+    const endpoint = 'https://pgpablo.helioho.st/api'
 
     const getArticulosLista = async () => {
         const keys = Object.keys({...localStorage})
